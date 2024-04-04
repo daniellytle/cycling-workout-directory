@@ -9,7 +9,7 @@ function App() {
       <div className='flex justify-center'>
         <div className='container'>
           <header className="flex justify-between items-center border-b border-gray-200 w-full p-4">
-            <Link to={'/workouts'}>
+            <Link to={'/'}>
               <h1 className='text-3xl font-bold hover:text-gray-600'>
                 Cycling Workouts
               </h1>

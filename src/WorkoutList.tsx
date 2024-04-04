@@ -89,7 +89,7 @@ const WorkoutList: React.FC = () => {
       <div className="flex-1">
         <>
       <Transition appear show={selectedWorkout != null} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => navigate('/workouts')}>
+        <Dialog as="div" className="relative z-10" onClose={() => navigate('/')}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

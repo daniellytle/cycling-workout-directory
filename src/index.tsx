@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "workouts",
+        path: "/",
         element: <WorkoutList />,
       },
       {
@@ -29,7 +29,9 @@ const router = createBrowserRouter([
       },
     ],
   },
-]);
+],{
+  basename: '/cycling-workout-directory',
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import { Outlet } from 'react-router';
 import './App.css';
+import { Link } from 'react-router-dom';
 
 function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='flex justify-center'>
+        <div className='container'>
+          <header className="flex justify-between items-center border-b border-gray-200 w-full p-4">
+            <Link to={'/workouts'}>
+              <h1 className='text-3xl font-bold hover:text-gray-600'>
+                Cycling Workouts
+              </h1>
+            </Link>
+            <div>
+              <Link to={'about'} >
+                About
+              </Link>
+              <Link className='ml-4' to={'https://github.com/daniellytle/cycling-workout-directory'} >
+                Github
+              </Link>
+            </div>
+          </header>
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 }

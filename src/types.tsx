@@ -11,6 +11,7 @@ interface ZwiftWorkout {
   tags: string[];
   category: string;
   rawXML: string;
+  duration: number;
 }
 
 export { 

@@ -78,6 +78,7 @@ const BlockInterval = (intervals: ZwiftInterval[], interval: ZwiftInterval, inde
 const RampInterval = (intervals: ZwiftInterval[], interval: ZwiftInterval, index: number, height: number, barMargin: number) => {
   const x = intervals.slice(0, index).reduce((agg, i) => agg + i.duration + barMargin, 0)
   return <path 
+    key={index}
     d={`M${x},${height-interval.startPower} L${x + interval.duration},${height-interval.endPower} L${x + interval.duration},${height} L${x},${height}`}
     fill={"#ddd"}
     onClick={() => {}}

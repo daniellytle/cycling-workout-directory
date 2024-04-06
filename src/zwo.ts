@@ -1,78 +1,87 @@
 import { ZwiftWorkout, ZwiftInterval } from "./types";
+import { XMLParser } from "fast-xml-parser";
+
+const getWorkoutDuration = (intervals: ZwiftInterval[]): number =>
+  intervals.reduce((agg, interval) => agg += interval.duration, 0) / 60
+
+const getWorkoutFile = (content: any[]) => 
+  content.find(item => item.hasOwnProperty('workout_file')).workout_file
+
+const getWorkout = (content: any[]) => 
+  content.find(item => item.hasOwnProperty('workout')).workout
+
+const getTagProperty = (propertyName: string, content: any): string =>
+  content[':@'][`@_${propertyName}`] || ""
+
+const parsePowerPercentage = (powerString: string): number =>
+  parseFloat(powerString) * 100 // convert to percentage
+
+const getTagText = (tagName: string, content: any[]): string =>
+  content.find(item => item.hasOwnProperty(tagName))?.[tagName]?.[0]?.['#text'] || ""
+
+
+const parseBlock = (content: object): ZwiftInterval =>
+  ({ 
+    duration: parseInt(getTagProperty("Duration", content)),
+    startPower: parsePowerPercentage(getTagProperty("PowerLow", content) || getTagProperty("Power", content) || "0.4"),
+    endPower: parsePowerPercentage(getTagProperty("PowerHigh", content) || getTagProperty("Power", content) || "0.4")
+  })
+
+const parseSteadyState = (content: object): ZwiftInterval =>
+  ({
+    duration: parseInt(getTagProperty("Duration", content)),
+    startPower: parsePowerPercentage(getTagProperty("Power", content)),
+    endPower: parsePowerPercentage(getTagProperty("Power", content))
+  })
+
+const parseIntervals = (content: object): ZwiftInterval[] => {
+  const repeat = parseInt(getTagProperty("Repeat", content))
+  const onDuration = parseInt(getTagProperty("OnDuration", content))
+  const onPower = parsePowerPercentage(getTagProperty("OnPower", content))
+  const offDuration = parseInt(getTagProperty("OffDuration", content))
+  const offPower = parsePowerPercentage(getTagProperty("OffPower", content))
+  return [...Array(repeat)].map((i) =>
+    [
+      { duration: onDuration, startPower: onPower, endPower: onPower },
+      { duration: offDuration, startPower: offPower, endPower: offPower }
+    ]
+  ).flat()
+}
+
+const getIntervals = (content: any[]): ZwiftInterval[] =>
+  content.map((item) => {
+    if (item.hasOwnProperty('IntervalsT')) {
+      return parseIntervals(item)
+    } else {
+      return parseBlock(item)
+    }
+  }).flat()
 
 function parseZwiftWorkoutString(workoutContent: string): ZwiftWorkout {
-  const lines = workoutContent.split('\n').map(line => line.trim());
+  const parser = new XMLParser({
+    ignoreAttributes : false,
+    preserveOrder: true,
+  });
+  const content = parser.parse(workoutContent)
 
   let workoutName = '';
   let workoutDescription = '';
-  let category: string = '';
+  let workoutCategory: string = '';
   let tags: string[] = [];
-  const intervals: (ZwiftInterval)[] = [];
+  let intervals: ZwiftInterval[] = [];
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    if (line.startsWith('<name>')) {
-      workoutName = line.substring(6, line.length - 7).trim();
-    } else if (line.startsWith('<description>')) {
-      workoutDescription = line.substring(13, line.length - 14).trim();
-    } else if (line.startsWith('<category>')) {
-      category = line.substring(10, line.length - 11).trim();
-    } else if (line.startsWith('<workout>')) {
-      for (let j = i + 1; j < lines.length; j++) {
-        const nextLine = lines[j];
-        if (nextLine.startsWith('</workout>')) {
-          break;
-        } else if (nextLine.startsWith('<SteadyState')) {
-          // Extract interval details
-          const duration = parseInt(nextLine.match(/Duration="(.*?)"/)![1], 10);
-          const power = parseFloat(nextLine.match(/Power="(.*?)"/)![1]) * 100; // Convert to percentage
-          intervals.push({ duration, startPower: power, endPower: power });
-        } else if (nextLine.startsWith('<FreeRide')) {
-          // Extract interval details
-          const duration = parseInt(nextLine.match(/Duration="(.*?)"/)![1], 10);
-          intervals.push({ duration, startPower: 50, endPower: 50 });
-        } else if (nextLine.startsWith('<Warmup')) {
-          // Extract interval details
-          const duration = parseInt(nextLine.match(/Duration="(.*?)"/)![1], 10);
-          const powerLow = parseFloat(nextLine.match(/PowerLow="(.*?)"/)![1]) * 100; // Convert to percentage
-          const powerHigh = parseFloat(nextLine.match(/PowerHigh="(.*?)"/)![1]) * 100; // Convert to percentage
-          intervals.push({ duration, startPower: powerLow, endPower: powerHigh });
-        } else if (nextLine.startsWith('<Cooldown')) {
-          // Extract interval details
-          const duration = parseInt(nextLine.match(/Duration="(.*?)"/)![1], 10);
-          const powerLow = parseFloat(nextLine.match(/PowerLow="(.*?)"/)![1]) * 100; // Convert to percentage
-          const powerHigh = parseFloat(nextLine.match(/PowerHigh="(.*?)"/)![1]) * 100; // Convert to percentage
-          intervals.push({ duration, startPower: powerLow, endPower: powerHigh });
-        } else if (nextLine.startsWith('<IntervalsT')) { // <IntervalsT Repeat="2" OnDuration="30" OffDuration="30" OnPower="0.98" OffPower="0.63"/>
-          // Extract interval details
-          const count = parseInt(nextLine.match(/Repeat="(.*?)"/)![1], 10);
-          const onDuration = parseInt(nextLine.match(/OnDuration="(.*?)"/)![1], 10);
-          const offDuration = parseInt(nextLine.match(/OffDuration="(.*?)"/)![1], 10);
-          const onPower = parseFloat(nextLine.match(/OnPower="(.*?)"/)![1]) * 100; // Convert to percentage
-          const offPower = parseFloat(nextLine.match(/OffPower="(.*?)"/)![1]) * 100; // Convert to percentage
-          intervals.push(...[...Array(count)].map((_, i) => 
-            [
-              {duration: onDuration, startPower: onPower, endPower: onPower}, // On interval
-              {duration: offDuration, startPower: offPower, endPower: offPower} // Rest interval
-            ]
-          ).flat());
-        }
-      }
-    } else if (line.startsWith('<tags>')) {
-      for (let j = i + 1; j < lines.length; j++) {
-        const nextLine = lines[j];
-        if (nextLine.startsWith('</tags>')) {
-          break;
-        } else if (nextLine.startsWith('<tag')) {
-          // Extract tag
-          const tag = nextLine.match(/name="(.*?)"/)![1]
-          tags.push(tag);
-        }
-      }
-    }
-  }
+  const workoutFile = getWorkoutFile(content)
+  workoutName = getTagText('name', workoutFile)
+  workoutDescription = getTagText('description', workoutFile)
+  workoutCategory = getTagText('category', workoutFile)
+  // tags
 
-  return { name: workoutName, description: workoutDescription, intervals, tags, category, rawXML: workoutContent };
+  const workout = getWorkout(workoutFile)
+  intervals = getIntervals(workout)
+  
+  const duration = getWorkoutDuration(intervals)
+
+  return { name: workoutName, description: workoutDescription, intervals, tags, category: workoutCategory, rawXML: workoutContent, duration };
 }
 
 export { parseZwiftWorkoutString };

@@ -10,13 +10,13 @@ import WorkoutView from './WorkoutView';
 
 const WorkoutList: React.FC = () => {
   const { workoutId } = useParams();
-  const selectedWorkout = workouts.find((workout) => workout.name.toLowerCase() === workoutId);
+  const selectedWorkout = workouts.find((workout) => workout.name.replace(/\s+/g, '-').toLowerCase() === workoutId);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const filteredWorkouts: ZwiftWorkout[] = workouts.filter(workout =>
-    workout.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    workout.name.replace(/\s+/g, '-').toLowerCase().includes(searchTerm.toLowerCase()) &&
       (selectedTags.length === 0 || selectedTags.filter(x => workout.tags.includes(x)).length) &&
       (selectedCategories.length === 0 || selectedCategories.includes(workout.category))
   );
@@ -40,13 +40,10 @@ const WorkoutList: React.FC = () => {
     setSelectedCategories(updatedCategories);
   };
 
-  const getWorkoutDuration = (workout: ZwiftWorkout): number =>
-    workout.intervals.reduce((agg, interval) => agg += interval.duration, 0) / 60
-
   return (
     <div className="flex p-4">
       {/* Filter Panel */}
-      <div className="w-1/4 pr-4">
+      <div className="w-1/5 fixed">
         <h2 className="text-lg font-semibold mb-2">Filters</h2>
         <input
           type="text"
@@ -86,7 +83,7 @@ const WorkoutList: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="flex-1">
+      <div className="w-3/4 ml-auto">
         <>
       <Transition appear show={selectedWorkout != null} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => navigate('/')}>
@@ -133,16 +130,14 @@ const WorkoutList: React.FC = () => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {filteredWorkouts.map((workout, i) => (
-              <tr key={i} className="hover:bg-gray-100 cursor-pointer">
-                <Link className='contents hover:bg-gray-100' to={`/workouts/${workout.name.toLowerCase()}`}>
+              <tr key={i} className=" hover:bg-gray-100 cursor-pointer" onClick={() => navigate(`/workouts/${workout.name.replace(/\s+/g, '-').toLowerCase()}`)}>
                   <td className="px-6 py-4 whitespace-nowrap max-w-8">
                     <WorkoutChart workout={workout} />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{workout.name}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{workout.category}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{getWorkoutDuration(workout)}min</td>
-                </Link>
-              </tr>
+                  <td className="px-6 py-4 whitespace-nowrap">{Math.round(workout.duration)}min</td>
+                </tr>
             ))}
           </tbody>
         </table>

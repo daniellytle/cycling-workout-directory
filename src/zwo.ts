@@ -7,6 +7,9 @@ const getWorkoutDuration = (intervals: ZwiftInterval[]): number =>
 const getWorkoutFile = (content: any[]) => 
   content.find(item => item.hasOwnProperty('workout_file')).workout_file
 
+const getWorkoutTags = (content: any[]): string[] => 
+  content.find(item => item.hasOwnProperty('tags'))?.tags.map((t: any) => getTagProperty("name", t)) || []
+
 const getWorkout = (content: any[]) => 
   content.find(item => item.hasOwnProperty('workout')).workout
 
@@ -25,13 +28,6 @@ const parseBlock = (content: object): ZwiftInterval =>
     duration: parseInt(getTagProperty("Duration", content)),
     startPower: parsePowerPercentage(getTagProperty("PowerLow", content) || getTagProperty("Power", content) || "0.4"),
     endPower: parsePowerPercentage(getTagProperty("PowerHigh", content) || getTagProperty("Power", content) || "0.4")
-  })
-
-const parseSteadyState = (content: object): ZwiftInterval =>
-  ({
-    duration: parseInt(getTagProperty("Duration", content)),
-    startPower: parsePowerPercentage(getTagProperty("Power", content)),
-    endPower: parsePowerPercentage(getTagProperty("Power", content))
   })
 
 const parseIntervals = (content: object): ZwiftInterval[] => {
@@ -67,21 +63,21 @@ function parseZwiftWorkoutString(workoutContent: string): ZwiftWorkout {
   let workoutName = '';
   let workoutDescription = '';
   let workoutCategory: string = '';
-  let tags: string[] = [];
+  let workoutTags: string[] = [];
   let intervals: ZwiftInterval[] = [];
 
   const workoutFile = getWorkoutFile(content)
   workoutName = getTagText('name', workoutFile)
   workoutDescription = getTagText('description', workoutFile)
   workoutCategory = getTagText('category', workoutFile)
-  // tags
+  workoutTags = getWorkoutTags(workoutFile)
 
   const workout = getWorkout(workoutFile)
   intervals = getIntervals(workout)
   
   const duration = getWorkoutDuration(intervals)
 
-  return { name: workoutName, description: workoutDescription, intervals, tags, category: workoutCategory, rawXML: workoutContent, duration };
+  return { name: workoutName, description: workoutDescription, intervals, tags: workoutTags, category: workoutCategory, rawXML: workoutContent, duration };
 }
 
 export { parseZwiftWorkoutString };

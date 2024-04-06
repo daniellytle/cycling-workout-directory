@@ -7,6 +7,7 @@ import WorkoutChart from './WorkoutChart';
 import { Dialog, Transition } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
 import WorkoutView from './WorkoutView';
+import classNames from 'classnames';
 
 const WorkoutList: React.FC = () => {
   const { workoutId } = useParams();
@@ -69,17 +70,14 @@ const WorkoutList: React.FC = () => {
         </div>
         <div className="mb-4">
           <h3 className="text-sm font-semibold mb-1">Tags</h3>
-          {tags.map(tag => (
-            <div key={tag} className="flex items-center mb-2">
-              <input
-                type="checkbox"
-                id={tag}
-                checked={selectedTags.includes(tag)}
-                onChange={() => toggleTag(tag)}
-                className="mr-2"
-              />
-              <label htmlFor={tag}>{tag}</label>
-            </div>
+          {tags.map((tag, i) => (
+            <span 
+              key={i}
+              className={"select-none cursor-pointer mr-2 mb-2 inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset " + (selectedTags.includes(tag) ? "ring-blue-500/10 bg-blue-50 text-blue-600" : "ring-gray-500/10 bg-gray-50 text-gray-600")}
+              onClick={() => toggleTag(tag)}
+            >
+              {tag}
+            </span>
           ))}
         </div>
       </div>

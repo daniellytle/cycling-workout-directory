@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/cycling-workout-directory/static/css/main.4fb0c913.css",
-    "main.js": "/cycling-workout-directory/static/js/main.6d144989.js",
+    "main.css": "/cycling-workout-directory/static/css/main.995e2b1b.css",
+    "main.js": "/cycling-workout-directory/static/js/main.575577be.js",
     "static/js/453.08bdf1df.chunk.js": "/cycling-workout-directory/static/js/453.08bdf1df.chunk.js",
     "index.html": "/cycling-workout-directory/index.html",
-    "main.4fb0c913.css.map": "/cycling-workout-directory/static/css/main.4fb0c913.css.map",
-    "main.6d144989.js.map": "/cycling-workout-directory/static/js/main.6d144989.js.map",
+    "main.995e2b1b.css.map": "/cycling-workout-directory/static/css/main.995e2b1b.css.map",
+    "main.575577be.js.map": "/cycling-workout-directory/static/js/main.575577be.js.map",
     "453.08bdf1df.chunk.js.map": "/cycling-workout-directory/static/js/453.08bdf1df.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4fb0c913.css",
-    "static/js/main.6d144989.js"
+    "static/css/main.995e2b1b.css",
+    "static/js/main.575577be.js"
   ]
 }

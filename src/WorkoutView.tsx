@@ -17,7 +17,7 @@ const WorkoutView: React.FC<MyProps> = (props: MyProps) => {
         <WorkoutChart workout={props.workout} />
       </div>
       <div className='mb-4'>{props.workout.description}</div>
-      
+      <div className='mb-4'>Author: <span className='font-bold'>{props.workout.author}</span></div>
       <div className="flex justify-end">
         <a download={props.workout.name.replace(/\s+/g, '-').toLowerCase() + ".zwo"} target="_blank" rel="noreferrer" href={URL.createObjectURL(zwoFile)}
           className="no-underline bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"

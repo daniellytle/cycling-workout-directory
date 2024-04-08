@@ -62,6 +62,7 @@ function parseZwiftWorkoutString(workoutContent: string): ZwiftWorkout {
 
   let workoutName = '';
   let workoutDescription = '';
+  let workoutAuthor = '';
   let workoutCategory: string = '';
   let workoutTags: string[] = [];
   let intervals: ZwiftInterval[] = [];
@@ -69,6 +70,7 @@ function parseZwiftWorkoutString(workoutContent: string): ZwiftWorkout {
   const workoutFile = getWorkoutFile(content)
   workoutName = getTagText('name', workoutFile)
   workoutDescription = getTagText('description', workoutFile)
+  workoutAuthor = getTagText('author', workoutFile)
   workoutCategory = getTagText('category', workoutFile)
   workoutTags = getWorkoutTags(workoutFile)
 
@@ -77,7 +79,7 @@ function parseZwiftWorkoutString(workoutContent: string): ZwiftWorkout {
   
   const duration = getWorkoutDuration(intervals)
 
-  return { name: workoutName, description: workoutDescription, intervals, tags: workoutTags, category: workoutCategory, rawXML: workoutContent, duration };
+  return { name: workoutName, description: workoutDescription, author: workoutAuthor, intervals, tags: workoutTags, category: workoutCategory, rawXML: workoutContent, duration };
 }
 
 export { parseZwiftWorkoutString };

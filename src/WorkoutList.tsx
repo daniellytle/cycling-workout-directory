@@ -7,7 +7,6 @@ import WorkoutChart from './WorkoutChart';
 import { Dialog, Transition } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
 import WorkoutView from './WorkoutView';
-import classNames from 'classnames';
 
 const WorkoutList: React.FC = () => {
   const { workoutId } = useParams();
@@ -44,7 +43,7 @@ const WorkoutList: React.FC = () => {
   return (
     <div className="flex p-4">
       {/* Filter Panel */}
-      <div className="w-1/5 fixed">
+      <div className="w-80 fixed pr-4 lg:block hidden">
         <h2 className="text-lg font-semibold mb-2">Filters</h2>
         <input
           type="text"
@@ -81,7 +80,7 @@ const WorkoutList: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="w-3/4 ml-auto">
+      <div className="w-full lg:ml-80">
         <>
       <Transition appear show={selectedWorkout != null} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => navigate('/')}>
@@ -122,8 +121,8 @@ const WorkoutList: React.FC = () => {
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profile</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Category</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Duration</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -133,8 +132,8 @@ const WorkoutList: React.FC = () => {
                     <WorkoutChart workout={workout} />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{workout.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{workout.category}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{Math.round(workout.duration)}min</td>
+                  <td className="px-6 py-4 whitespace-nowrap hidden md:table-cell">{workout.category}</td>
+                  <td className="px-6 py-4 whitespace-nowrap hidden md:table-cell">{Math.round(workout.duration)}min</td>
                 </tr>
             ))}
           </tbody>

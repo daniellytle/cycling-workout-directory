@@ -7,6 +7,7 @@ interface ZwiftInterval {
 interface ZwiftWorkout {
   name: string; // Name of the workout
   description: string; // Description of the workout
+  author: string; // Author of the workout
   intervals: ZwiftInterval[]; // Array of intervals
   tags: string[];
   category: string;

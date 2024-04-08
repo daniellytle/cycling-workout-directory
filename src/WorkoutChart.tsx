@@ -36,7 +36,7 @@ const powerColor = (interval: ZwiftInterval): string => {
   else if (power < 75)
     return "blue"
   else if (power < 90)
-    return "yellow"
+    return "#ffda00"
   else if (power < 105)
     return "orange"
   else

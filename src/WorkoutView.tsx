@@ -13,7 +13,7 @@ const WorkoutView: React.FC<MyProps> = (props: MyProps) => {
   return (
     <div className='w-full prose max-w-none'>
       <h2 className='mb-4'>{props.workout.name}</h2>
-      <div className='mb-4 p-4 w-full border border-color-gray-600 rounded'>
+      <div className='mb-4 p-4 w-full border border-color-gray-600 rounded' style={{height: 150}}>
         <WorkoutChart workout={props.workout} />
       </div>
       <div className='mb-4'>{props.workout.description}</div>

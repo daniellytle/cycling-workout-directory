@@ -5,12 +5,20 @@ interface MyProps {
   workout: ZwiftWorkout
 }
 
+const InfoPopup = ({interval}: {
+  interval: ZwiftInterval
+}) => {
+  return (
+    interval && <div>{interval.startPower} Watts</div>
+  )
+}
+
 const Chart = ({ children, height, width }: {
   children: React.ReactNode,
   height: number,
   width: number,
 }) => (
-  <svg viewBox={`0 0 ${width} ${height}`} width="100%">
+  <svg viewBox={`0 0 ${width} ${height}`} style={{width: "100%", height: "100%"}} preserveAspectRatio={"none"}>
     {children}
   </svg>
 )
@@ -87,7 +95,9 @@ const RampInterval = (intervals: ZwiftInterval[], interval: ZwiftInterval, index
 
 const WorkoutChart: React.FC<MyProps> = (props: MyProps) => {
   return (
-    <BarChart intervals={props.workout.intervals} />
+    <>
+      <BarChart intervals={props.workout.intervals} />
+    </>
   );
 };
 

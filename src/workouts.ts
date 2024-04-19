@@ -2606,6 +2606,52 @@ If you find the "recovery" between the Z7 intervals to be too difficult, reduce 
     <Cooldown Duration="300" PowerLow="0.91449994" PowerHigh="0.2545" pace="0"/>
 </workout>
 </workout_file>`,
+`<workout_file>
+<author>R.Manning - Tailwind Coaching</author>
+<name>Following The Efforts</name>
+<description>Welcome, today we've got 9x3 minute efforts on tap. The bulk of the work isn't overly hard today with a lot of 80% riding but you have to follow the 30 second VO2 effort inside each 3 minute block. 1-3 it's at the beginning. 4-6 it's in the middle. 7-9 it's at the end. Once you're done with that effort, though, you need to settle back into your pace.
+</description>
+<sportType>bike</sportType>
+<tags>
+    <tag name="intervals"/>
+</tags>
+<workout>
+<Warmup Duration="600" PowerLow="0.45" PowerHigh="0.65" pace="0"/>
+<IntervalsT Repeat="6" OnDuration="20" OffDuration="40" OnPower="1.10" OffPower="0.55"/>
+<SteadyState Duration="30" Power="1.10" pace="0"/>
+<SteadyState Duration="150" Power="0.80" pace="0"/>
+<SteadyState Duration="60" Power="0.50" pace="0"/>
+<SteadyState Duration="30" Power="1.10" pace="0"/>
+<SteadyState Duration="150" Power="0.80" pace="0"/>
+<SteadyState Duration="60" Power="0.50" pace="0"/>
+<SteadyState Duration="30" Power="1.10" pace="0"/>
+<SteadyState Duration="150" Power="0.80" pace="0"/>
+<SteadyState Duration="60" Power="0.50" pace="0"/>
+<SteadyState Duration="60" Power="0.80" pace="0"/>
+<SteadyState Duration="30" Power="1.10" pace="0"/>
+<SteadyState Duration="90" Power="0.80" pace="0"/>
+<SteadyState Duration="60" Power=".50" pace="0"/>
+<SteadyState Duration="60" Power="0.80" pace="0"/>
+<SteadyState Duration="30" Power="1.10" pace="0"/>
+<SteadyState Duration="90" Power="0.80" pace="0"/>
+<SteadyState Duration="60" Power=".50" pace="0"/>
+<SteadyState Duration="60" Power="0.80" pace="0"/>
+<SteadyState Duration="30" Power="1.10" pace="0"/>
+<SteadyState Duration="90" Power="0.80" pace="0"/>
+<SteadyState Duration="60" Power=".50" pace="0"/>
+<SteadyState Duration="150" Power="0.80" pace="0"/>
+<SteadyState Duration="30" Power="1.10" pace="0"/>
+<SteadyState Duration="60" Power=".50" pace="0"/>
+<SteadyState Duration="150" Power="0.80" pace="0"/>
+<SteadyState Duration="30" Power="1.10" pace="0"/>
+<SteadyState Duration="60" Power=".50" pace="0"/>
+<SteadyState Duration="150" Power="0.80" pace="0"/>
+<SteadyState Duration="30" Power="1.10" pace="0"/>
+<SteadyState Duration="60" Power=".50" pace="0"/>
+<Cooldown Duration="400" PowerLow="0.55" PowerHigh="0.45" pace="0"/>
+</workout>
+</workout_file>10min from 45 to 65% FTP
+`
 ].map((workout) => parseZwiftWorkoutString(workout))
 
 export { workouts }

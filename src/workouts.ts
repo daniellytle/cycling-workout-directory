@@ -2515,6 +2515,97 @@ Basically the first two are simply prepping your system, and are not providing a
   </workout>
 </workout_file>
 `,
+`<workout_file>
+<author>R.Manning - Tailwind Coaching</author>
+<name>Worst 5 Minutes</name>
+<description>This variation of a Tabata workout introduces different length intervals with varying recovery.  It's designed to force you to be explosive when tired and recover in between repeated efforts. 
+
+If you find the "recovery" between the Z7 intervals to be too difficult, reduce the intensity to 75% of FTP.</description>
+<sportType>bike</sportType>
+<tags>
+    <tag name="INTERVALS"/>
+</tags>
+<workout>
+    <Warmup Duration="600" PowerLow="0.2545" PowerHigh="0.75449997" pace="0"/>
+    <SteadyState Duration="50" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="10" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="40" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="20" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="30" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="30" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="20" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="40" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="10" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="50" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="420" Power="0.65449995" pace="0"/>
+    <SteadyState Duration="50" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="10" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="40" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="20" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="30" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="30" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="20" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="40" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="10" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="50" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="420" Power="0.65449995" pace="0"/>
+    <SteadyState Duration="50" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="10" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="40" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="20" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="30" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="30" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="20" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="40" Power="2.0044999" pace="0"/>
+    <SteadyState Duration="10" Power="0.95449996" pace="0"/>
+    <SteadyState Duration="50" Power="2.0044999" pace="0"/>
+    <Cooldown Duration="360" PowerLow="0.75449997" PowerHigh="0.2545" pace="0"/>
+</workout>
+</workout_file>`,
+`<workout_file>
+<author>R.Manning - Tailwind Coaching</author>
+<name>Aerobic Round Robin</name>
+<description>This workout is designed to offer a multitude of aerobic training options.  From longer duration steady state intervals to shorter lactate shuttling intervals, you can perform tons of variations on this workout to build aerobic conditioning.</description>
+<sportType>bike</sportType>
+<tags>
+    <tag name="INTERVALS"/>
+</tags>
+<workout>
+    <Warmup Duration="510" PowerLow="0.45449999" PowerHigh="0.95449996" pace="32767"/>
+    <SteadyState Duration="510" Power="0.90449995" pace="32767"/>
+    <SteadyState Duration="180" Power="0.64926469" pace="32767"/>
+    <SteadyState Duration="510" Power="0.90906858" pace="32767"/>
+    <SteadyState Duration="180" Power="0.64926469" pace="32767"/>
+    <IntervalsT Repeat="6" OnDuration="60" OffDuration="150" OnPower="1.1044999" OffPower="0.50449997" pace="32767"/>
+    <FreeRide Duration="180" FlatRoad="1"/>
+</workout>
+</workout_file>`,
+`<workout_file>
+<author>R.Manning - Tailwind Coaching</author>
+<name>Early Base Grab Bag</name>
+<description>This workout is the perfect "any day" base building workout.  Specifically designed for use in the early base phase, it offers plenty of opportunity to build aerobic conditioning.  You'll also get a little bit of higher intensity work to keep your body honest and get you used to interval work that comes later in a periodized training program.</description>
+<sportType>bike</sportType>
+<tags>
+    <tag name="INTERVALS"/>
+</tags>
+<workout>
+    <Warmup Duration="300" PowerLow="0.2545" PowerHigh="0.90449995" pace="0"/>
+    <SteadyState Duration="540" Power="0.91449994" pace="0"/>
+    <SteadyState Duration="60" Power="1.1044999" pace="0"/>
+    <SteadyState Duration="300" Power="0.6045" pace="0"/>
+    <SteadyState Duration="540" Power="0.91449994" pace="0"/>
+    <SteadyState Duration="60" Power="1.1044999" pace="0"/>
+    <SteadyState Duration="300" Power="0.6045" pace="0"/>
+    <SteadyState Duration="120" Power="1.1044999" pace="0"/>
+    <SteadyState Duration="120" Power="0.6045" pace="0"/>
+    <SteadyState Duration="120" Power="1.1044999" pace="0"/>
+    <SteadyState Duration="120" Power="0.6045" pace="0"/>
+    <SteadyState Duration="120" Power="1.1044999" pace="0"/>
+    <SteadyState Duration="540" Power="0.91449994" pace="0"/>
+    <SteadyState Duration="60" Power="1.1544999" pace="0"/>
+    <Cooldown Duration="300" PowerLow="0.91449994" PowerHigh="0.2545" pace="0"/>
+</workout>
+</workout_file>`,
 ].map((workout) => parseZwiftWorkoutString(workout))
 
 export { workouts }

@@ -2,7 +2,7 @@
   "name": "cycling-workout-directory",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://daniellytle.github.io/cycling-workout-directory",
+  "homepage": "http://cycling-workouts.com",
   "dependencies": {
     "@headlessui/react": "^1.7.18",
     "@testing-library/jest-dom": "^5.17.0",

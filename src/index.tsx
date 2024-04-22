@@ -29,9 +29,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-],{
-  basename: '/cycling-workout-directory',
-});
+]);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

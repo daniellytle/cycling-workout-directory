@@ -2651,6 +2651,59 @@ If you find the "recovery" between the Z7 intervals to be too difficult, reduce 
 <Cooldown Duration="400" PowerLow="0.55" PowerHigh="0.45" pace="0"/>
 </workout>
 </workout_file>10min from 45 to 65% FTP
+`,
+`<workout_file>
+<author>GPT</author>
+<name>Race Dynamic</name>
+<description>Race Dynamics Workout</description>
+<tags>
+    <tag name="race"/>
+    <tag name="intervals"/>
+    <tag name="Zwift"/>
+</tags>
+<workout>
+    <!-- Warmup -->
+    <Warmup Duration="600" PowerLow="0.6" PowerHigh="0.7"/>
+    
+    <!-- Surge Interval -->
+    <SteadyState Duration="300" Power="0.8"/>
+    <SteadyState Duration="60" Power="1.2"/>
+    <SteadyState Duration="300" Power="0.8"/>
+    
+    <!-- Recovery -->
+    <FreeRide Duration="120" PowerLow="0.5" PowerHigh="0.6"/>
+    
+    <!-- Long Climb -->
+    <SteadyState Duration="600" Power="0.85"/>
+    
+    <!-- Attack Interval -->
+    <SteadyState Duration="180" Power="0.9"/>
+    <SteadyState Duration="30" Power="1.3"/>
+    <SteadyState Duration="180" Power="0.9"/>
+    
+    <!-- Recovery -->
+    <FreeRide Duration="120" PowerLow="0.5" PowerHigh="0.6"/>
+    
+    <!-- Sprint Finish -->
+    <SteadyState Duration="20" Power="1.5"/>
+    <SteadyState Duration="10" Power="0.8"/>
+    <SteadyState Duration="20" Power="1.5"/>
+    <SteadyState Duration="10" Power="0.8"/>
+    <SteadyState Duration="20" Power="1.5"/>
+    <SteadyState Duration="10" Power="0.8"/>
+    <SteadyState Duration="20" Power="1.5"/>
+    <SteadyState Duration="10" Power="0.8"/>
+    <SteadyState Duration="20" Power="1.5"/>
+    <SteadyState Duration="10" Power="0.8"/>
+    <SteadyState Duration="20" Power="1.5"/>
+    <SteadyState Duration="10" Power="0.8"/>
+    <SteadyState Duration="20" Power="1.5"/>
+    <SteadyState Duration="10" Power="0.8"/>
+    
+    <!-- Cooldown -->
+    <SteadyState Duration="600" Power="0.5"/>
+</workout>
+</workout_file>
 `
 ].map((workout) => parseZwiftWorkoutString(workout))
 

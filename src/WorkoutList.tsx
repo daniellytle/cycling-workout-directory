@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 
 import { ZwiftWorkout } from './types';
@@ -10,14 +10,30 @@ import WorkoutView from './WorkoutView';
 
 const WorkoutList: React.FC = () => {
   const { workoutId } = useParams();
-  const selectedWorkout = workouts.find((workout) => workout.name.replace(/\s+/g, '-').toLowerCase() === workoutId);
+  const selectedWorkout = workouts.find((workout): Boolean => {
+    return workout.name.replace(/\s+/g, '-').toLowerCase() === workoutId; ;
+  }); 
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [listLength, setListLength] = useState(20);
+
+  useEffect(() => {
+    window.onscroll = function() {
+      if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+          setListLength((listLength) => listLength + 20);
+      }
+    };
+  }, [])
+
+  const resetTable = () => {
+    window.scrollTo(0,0);
+    setListLength(20);
+  }
 
   const filteredWorkouts: ZwiftWorkout[] = workouts.filter(workout =>
-    workout.name.replace(/\s+/g, '-').toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (selectedTags.length === 0 || selectedTags.filter(x => workout.tags.includes(x)).length) &&
+    workout.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (selectedTags.length === 0 || selectedTags.every(x => workout.tags.includes(x))) &&
       (selectedCategories.length === 0 || selectedCategories.includes(workout.category))
   );
 
@@ -27,6 +43,7 @@ const WorkoutList: React.FC = () => {
   const navigate = useNavigate();
 
   const toggleTag = (tag: string) => {
+    resetTable();
     const updatedTags = selectedTags.includes(tag)
       ? selectedTags.filter(t => t !== tag)
       : [...selectedTags, tag];
@@ -34,6 +51,7 @@ const WorkoutList: React.FC = () => {
   };
 
   const toggleCategory = (category: string) => {
+    resetTable();
     const updatedCategories = selectedCategories.includes(category)
       ? selectedCategories.filter(c => c !== category)
       : [...selectedCategories, category];
@@ -47,12 +65,15 @@ const WorkoutList: React.FC = () => {
         <h2 className="text-lg font-semibold mb-2">Filters</h2>
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Name..."
           className="p-2 border border-gray-300 rounded-md mb-4 w-full"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => {
+            resetTable();
+            setSearchTerm(e.target.value);
+          }}
         />
-        <div className="mb-4">
+        {/*<div className="mb-4">
           <h3 className="text-sm font-semibold mb-1">Category</h3>
           {categories.map(category => (
             <div key={category} className="flex items-center mb-2">
@@ -67,6 +88,7 @@ const WorkoutList: React.FC = () => {
             </div>
           ))}
         </div>
+        */}
         <div className="mb-4">
           <h3 className="text-sm font-semibold mb-1">Tags</h3>
           {tags.map((tag, i) => (
@@ -121,18 +143,18 @@ const WorkoutList: React.FC = () => {
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profile</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Category</th>
+              {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Category</th> */}
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Duration</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {filteredWorkouts.map((workout, i) => (
+            {filteredWorkouts.slice(0, listLength).map((workout, i) => (
               <tr key={i} className=" hover:bg-gray-100 cursor-pointer" onClick={() => navigate(`/workouts/${workout.name.replace(/\s+/g, '-').toLowerCase()}`)}>
                   <td className="px-6 py-4 whitespace-nowrap max-w-8">
                     <WorkoutChart workout={workout} />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{workout.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap hidden md:table-cell">{workout.category}</td>
+                  {/* <td className="px-6 py-4 whitespace-nowrap hidden md:table-cell">{workout.category}</td> */}
                   <td className="px-6 py-4 whitespace-nowrap hidden md:table-cell">{Math.round(workout.duration)}min</td>
                 </tr>
             ))}

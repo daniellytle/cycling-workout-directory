@@ -68,7 +68,7 @@ function parseZwiftWorkoutString(workoutContent: string): ZwiftWorkout {
   let intervals: ZwiftInterval[] = [];
 
   const workoutFile = getWorkoutFile(content)
-  workoutName = getTagText('name', workoutFile)
+  workoutName = getTagText('name', workoutFile).toString()
   workoutDescription = getTagText('description', workoutFile)
   workoutAuthor = getTagText('author', workoutFile)
   workoutCategory = getTagText('category', workoutFile)

@@ -37,15 +37,17 @@ const Bar = ({ fill = '#000', x, y, height, width, onClick }: {
 const greatestValue = (values: number[]) =>
   values.reduce((acc, cur) => (cur > acc ? cur : acc), -Infinity)
 
-const powerColor = (interval: ZwiftInterval): string => {
-  const power = interval.startPower
+const powerColor = (interval: ZwiftInterval): string => {  
+  const power = interval.startPower > interval.endPower ? interval.startPower : interval.endPower
   if (power < 55)
     return "#32e73c"
   else if (power < 75)
-    return "blue"
+    return "#3acc3a"
   else if (power < 90)
-    return "#ffda00"
+    return "blue"
   else if (power < 105)
+    return "#ffda00"
+  else if (power < 120)
     return "orange"
   else
     return "red"
@@ -88,7 +90,7 @@ const RampInterval = (intervals: ZwiftInterval[], interval: ZwiftInterval, index
   return <path 
     key={index}
     d={`M${x},${height-interval.startPower} L${x + interval.duration},${height-interval.endPower} L${x + interval.duration},${height} L${x},${height}`}
-    fill={"#ddd"}
+    fill={powerColor(interval)}
     onClick={() => {}}
   />
 }

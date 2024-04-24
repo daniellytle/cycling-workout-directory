@@ -1,0 +1,16 @@
+
+  <workout_file>
+    <name>1 Seated Accelerations RPM Strength Reps Set1</name>
+    <description>Author: Pav Bryan (Direct Power Coaching)</description>
+    <author>Zwift</author>
+    <sportType>bike</sportType>
+    <tags>
+      
+    </tags>
+    <workout>
+      <SteadyState Duration="900" Power="0.4" />
+<IntervalsT Repeat="6" OnDuration="30" OffDuration="180" OnPower="2" OffPower="0.55"/>
+<SteadyState Duration="540" Power="0.4" />
+    </workout>
+  </workout_file>
+  

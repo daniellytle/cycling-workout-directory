@@ -7,11 +7,12 @@ const validWorkoutStrings = workoutFile.data.filter((workout: string) => {
     return true
   } catch (error) {
     console.log(`error parsing ${workout}`, error)
-
   }
   return false
 })
 
-const workouts = validWorkoutStrings.map((workout: string) => parseZwiftWorkoutString(workout))
+const workouts = validWorkoutStrings.map((workout: string) =>
+  parseZwiftWorkoutString(workout)
+)
 
 export { workouts }

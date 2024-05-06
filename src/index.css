@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input[type="range"] {
+  @apply pointer-events-none appearance-none bg-transparent;
+}
+input[type="range"]::-webkit-slider-thumb {
+  @apply cursor-grab pointer-events-auto;
+}
+input[type="range"]::-moz-range-thumb {
+  @apply cursor-grab pointer-events-auto;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  @apply bg-none rounded-full;
+}
+
+input[type="range"]::-moz-range-track {
+  @apply bg-none rounded-full;
+}
+
+input[type="range"]::-ms-track {
+  @apply bg-none rounded-full;
+}

@@ -1,4 +1,4 @@
-import { FaGithub } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa"
 import { Outlet } from "react-router"
 import { Link } from "react-router-dom"
 

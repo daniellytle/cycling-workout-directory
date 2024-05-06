@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Cycling Workouts",
+  "name": "Find cycling workouts that fit your needs.",
   "icons": [
     {
       "src": "favicon.ico",
